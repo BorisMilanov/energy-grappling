@@ -112,13 +112,13 @@ const TrainerSection: React.FC = () => {
               {/* Belt badge */}
               <div style={{
                 position: 'absolute', bottom: 8, right: -10,
-                background: '#8B4513', borderRadius: 20,
+                background: '#111111', borderRadius: 20,
                 padding: '4px 12px', color: 'white',
                 fontSize: 11, fontWeight: 700, letterSpacing: 0.5,
                 boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
                 border: '2px solid white',
               }}>
-                BJJ Brown Belt
+                BJJ Black Belt, 1st Degree
               </div>
             </div>
           </Col>

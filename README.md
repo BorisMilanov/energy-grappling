@@ -2,12 +2,39 @@
 
 ```
 client/   React + TypeScript + Vite frontend  (npm run dev -> http://localhost:3000)
-server/   Express + JWT + SQLite API          (npm run dev -> http://127.0.0.1:8000)
+server/   FastAPI + JWT + SQLite API           (python -m uvicorn app.main:app --reload -> http://127.0.0.1:8000)
 ```
 
-Each half has its own `package.json` — there is none at the repo root. See
-[server/README.md](server/README.md) for the API and [DEPLOY.md](DEPLOY.md) for putting it on
-energygrappling.com (Cloudflare Workers + Proxmox LXC).
+The frontend and API are started separately. The registration and login forms call
+`http://localhost:8000/api/auth/register` and `http://localhost:8000/api/auth/login` in development.
+
+## Deploying the frontend (Cloudflare Workers)
+
+```powershell
+cd client
+npx wrangler login   # one time, opens the browser
+npm run build        # type-check + build into dist/ (uses .env.production)
+npm run deploy       # upload dist/ to the "energygrappling" Worker
+```
+
+The site is served at `energygrappling.com` and `www.energygrappling.com` (see `client/wrangler.jsonc`).
+
+## FastAPI backend
+
+```powershell
+cd server
+python -m pip install -r requirements.txt
+python -m uvicorn app.main:app --reload --port 8000
+```
+
+Set a unique `JWT_SECRET` environment variable before deploying. User accounts are stored locally
+in `server/energy_grappling.db` and passwords are stored only as PBKDF2 hashes.
+
+The available authentication endpoints are:
+
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/auth/me` with `Authorization: Bearer <token>`
 
 ## React + TypeScript + Vite
 

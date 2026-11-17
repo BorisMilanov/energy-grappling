@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Layout, Menu, Button, Row, Col, Typography, Card, Table,
-  Space, ConfigProvider, Tag, Grid, Modal, Form, Input,
+  Space, ConfigProvider, Tag, Grid, Form, Input,
 } from 'antd';
 
 const { useBreakpoint } = Grid;
@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router';
 import { MenuOutlined, CloseOutlined, LogoutOutlined } from '@ant-design/icons';
 import herohomeImage from '../assets/team.jpg';
 import troyClubImage from '../assets/maint.jpg';
-import eventPoster from '../assets/event.png';
 import sinanTrainerImage from '../assets/SinanTrainer.png';
 import djaniTrainerImage from '../assets/DjaniTrener.png';
 import { clearSession, getUser } from '../services/authApi';
@@ -38,12 +37,6 @@ const BJJHomePage: React.FC = () => {
   const isMobile = !screens.md;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scheduleHover, setScheduleHover] = useState(false);
-  const [eventModalOpen, setEventModalOpen] = useState(false);
-
-  useEffect(() => {
-    setEventModalOpen(true);
-  }, []);
-
   const { ref: benefitsRef, isVisible: benefitsVisible } = useScrollReveal();
   const { ref: scheduleRef, isVisible: scheduleVisible } = useScrollReveal();
   const { ref: troyRef, isVisible: troyVisible } = useScrollReveal();
@@ -426,29 +419,6 @@ const BJJHomePage: React.FC = () => {
         {/* ── FOOTER ── */}
         <Footer />
       </Layout>
-
-      <Modal
-        open={eventModalOpen}
-        onCancel={() => setEventModalOpen(false)}
-        centered
-        width={420}
-        destroyOnHidden
-        title="Събитие"
-        footer={[
-          <Button key="more" type="primary" onClick={() => {
-            setEventModalOpen(false);
-            navigate(ROUTES.event);
-          }}>
-            Информация за събитието
-          </Button>,
-        ]}
-      >
-        <img
-          src={eventPoster}
-          alt="Event poster"
-          style={{ width: '100%', borderRadius: 12, display: 'block' }}
-        />
-      </Modal>
 
       <style>{`
         @media (max-width: 768px) {

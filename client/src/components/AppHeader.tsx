@@ -31,13 +31,16 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({ scrollToSection }) => {
   // Read on every render so the bar flips right after login / logout.
   const user = getUser();
 
-  // No Вход / Регистрация entries: the auth pages stay reachable by URL only.
   const menuItems: MenuProps['items'] = user
     ? [
         ...baseItems,
         { key: LOGOUT_KEY, label: `Изход (${user.full_name})`, icon: <LogoutOutlined /> },
       ]
-    : baseItems;
+    : [
+        ...baseItems,
+        { key: ROUTES.login, label: 'Вход' },
+        { key: ROUTES.register, label: 'Регистрация' },
+      ];
 
   // Highlight the current page; on the home page the scroll links all fall back to "Начало".
   const selectedKeys = [PAGE_PATHS.has(location.pathname) ? location.pathname : ROUTES.home];

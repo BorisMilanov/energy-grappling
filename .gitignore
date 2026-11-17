@@ -33,3 +33,6 @@ dist-ssr
 # Vite env files hold public build-time config only (no secrets) and the deploy build needs them.
 !.env.development
 !.env.production
+
+# Local FastAPI data
+server/*.db
